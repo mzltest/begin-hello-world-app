@@ -20,6 +20,10 @@
     "@architect/functions": "latest",
     "@architect/sandbox": "^5.0.0",
     "@begin/data": "latest",
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+      "@hapi/joi": "^15.1.1",
+    "chrome-aws-lambda": "^2.0.2",
+    "puppeteer-core": "^2.0.0",
+    "uuid": "^3.4.0"
   }
 }
