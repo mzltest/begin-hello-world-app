@@ -108,6 +108,26 @@ function parseQueryParams(query: object): ScreenshotOptions {
   return parsedValue
 }
 exports.handler = async function http (request) {
-  let response = { ok: true }
-  return response
+   const requestId = uuidV4()
+  console.log('Request received with id ->', requestId) // tslint:disable-line:no-console
+
+  try {
+    const parsedQueryParams = parseQueryParams(request.queryStringParameters)
+    const screenshot = await getScreenshot(parsedQueryParams)
+
+    const status = 200
+    return {statusCode:200,headers: {
+      'Content-Type': 'image/png',
+    },body:screenshot.toString('base64'),isBase64Encoded:true
+  } catch (error) {
+    const status = error.statusCode || 500
+    const response = {
+      statusCode: status,
+      message: error.message
+    }
+   return {statusCode:200,headers: {
+      'Content-Type': 'application/json',
+    },body:response,isBase64Encoded:false
+  }
+ 
 }
