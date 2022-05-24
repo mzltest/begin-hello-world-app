@@ -1,12 +1,13 @@
-exports.handler = async function http(req) {
+let arc = require('@architect/functions')
+let parseBody = arc.http.helpers.bodyParser
 
-
+exports.handler = async function http (request) {
+  console.log(request.body)     // 'Z3JlZXRpbmc9aG93ZHk='
+  let body = parseBody(request) // Pass the entire request object
+  let greeting = body.greeting  // 'howdy'
   return {
-    headers: {
-      'content-type': 'application/json; charset=utf8',
-      'cache-control': 'no-cache, no-store, must-revalidate, max-age=0, s-maxage=0'
-    },
     statusCode: 200,
-    body: {msg:"works"}
+    headers: { 'content-type': 'text/html; charset=utf8' },
+    body: greeting
   }
 }
